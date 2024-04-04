@@ -52,14 +52,12 @@ async function createUser(request, response, next) {
     const password = request.body.password;
 
     const successEmail = await usersService.checkingEmail(email);
-    if(!successEmail)
-    {
+    if (!successEmail) {
       throw errorResponder(
         errorTypes.EMAIL_ALREADY_TAKEN,
         'Email is already taken'
-      )
+      );
     }
-
     const success = await usersService.createUser(name, email, password);
     if (!success) {
       throw errorResponder(

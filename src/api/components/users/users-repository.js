@@ -1,3 +1,4 @@
+const { P } = require('pino');
 const { User } = require('../../../models');
 
 /**
@@ -17,7 +18,6 @@ async function getUser(id) {
   return User.findById(id);
 }
 
-
 /**
  * Create new user
  * @param {string} name - Name
@@ -33,29 +33,12 @@ async function createUser(name, email, password) {
   });
 }
 
-/**
- * Get a list of users by email
- * @param {string} email 
- * @returns {Promise}
- */
-async function getEmail(email)
-{
-  return User.find(
-    {
-      _email: email
-    }
-  );
-}
+async function checkingEmail(email) {
+  const emailExist = await User.findOne({ email: email });
 
-async function checkingEmail(email)
-{
-  const tempEmail = getEmail(email);
-  if(!tempEmail)
-  {
+  if (emailExist) {
     return null;
-  }
-  else
-  {
+  } else {
     return email;
   }
 }
