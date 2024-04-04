@@ -15,7 +15,7 @@ async function checkLoginCredentials(email, password) {
   // to handle the case when the user login is invalid. We still want to
   // check the password anyway, so that it prevents the attacker in
   // guessing login credentials by looking at the processing time.
-  const userPassword = user ? user.password : '<RANDOM_PASSWORD_FILLER>';
+  const userPassword = user ? user.password : '<RANDOM_PASSWORD_FILER>';
   const passwordChecked = await passwordMatched(password, userPassword);
 
   // Because we always check the password (see above comment), we define the

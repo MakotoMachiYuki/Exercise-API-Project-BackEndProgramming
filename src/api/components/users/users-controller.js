@@ -136,10 +136,44 @@ async function deleteUser(request, response, next) {
   }
 }
 
+/**
+ * Handle update password request
+ * @param {object} request - Express request object
+ * @param {object} response - Express response object
+ * @param {object} next - Express route middlewares
+ * @returns {object} Response object or pass an error to the next route
+ */
+async function updatePassword(request, response, next) {
+  try {
+    const id = request.params.id;
+    const old_password = request.body.old_password;
+    const new_password = request.body.new_password;
+    const confirmPassword = request.body.confirm_password;
+
+    if (confirmPassword != new_password) {
+      throw errorResponder(errorTypes.INVALID_PASSWORD, 'Invalid Password');
+    }
+
+    const successUpdate = await usersService.updatePassword(
+      id,
+      old_password,
+      new_password
+    );
+    if (!successUpdate) {
+      throw errorResponder(errorTypes.INVALID_PASSWORD, 'InvalidPassword');
+    }
+
+    return response.status(200).json({ id, old_password, new_password });
+  } catch (error) {
+    return next(error);
+  }
+}
+
 module.exports = {
   getUsers,
   getUser,
   createUser,
   updateUser,
   deleteUser,
+  updatePassword,
 };
