@@ -50,7 +50,11 @@ async function createUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
     const password = request.body.password;
+    const confirmPassword = request.body.confirm_password;
 
+    if (confirmPassword != password) {
+      throw errorResponder(errorTypes.INVALID_PASSWORD, 'Invalid Password');
+    }
     const successEmail = await usersService.checkingEmail(email);
     if (!successEmail) {
       throw errorResponder(
