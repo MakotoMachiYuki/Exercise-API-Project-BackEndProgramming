@@ -151,7 +151,10 @@ async function updatePassword(request, response, next) {
     const confirmPassword = request.body.confirm_password;
 
     if (confirmPassword != new_password) {
-      throw errorResponder(errorTypes.INVALID_PASSWORD, 'Invalid Password');
+      throw errorResponder(
+        errorTypes.INVALID_PASSWORD,
+        'Invalid Password (Confirm Password is Wrong!)'
+      );
     }
 
     const successUpdate = await usersService.updatePassword(
@@ -160,7 +163,10 @@ async function updatePassword(request, response, next) {
       new_password
     );
     if (!successUpdate) {
-      throw errorResponder(errorTypes.INVALID_PASSWORD, 'InvalidPassword');
+      throw errorResponder(
+        errorTypes.INVALID_PASSWORD,
+        'Invalid Password (Old Password is Wrong!)'
+      );
     }
 
     return response.status(200).json({ id, old_password, new_password });
