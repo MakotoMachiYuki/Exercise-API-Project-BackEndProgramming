@@ -85,6 +85,14 @@ async function updateUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
 
+    const successEmail = await usersService.checkingEmail(email);
+    if (!successEmail) {
+      throw errorResponder(
+        errorTypes.EMAIL_ALREADY_TAKEN,
+        'Email is already taken'
+      );
+    }
+
     const success = await usersService.updateUser(id, name, email);
     if (!success) {
       throw errorResponder(
