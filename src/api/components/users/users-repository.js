@@ -17,6 +17,7 @@ async function getUser(id) {
   return User.findById(id);
 }
 
+
 /**
  * Create new user
  * @param {string} name - Name
@@ -30,6 +31,33 @@ async function createUser(name, email, password) {
     email,
     password,
   });
+}
+
+/**
+ * Get a list of users by email
+ * @param {string} email 
+ * @returns {Promise}
+ */
+async function getEmail(email)
+{
+  return User.find(
+    {
+      _email: email
+    }
+  );
+}
+
+async function checkingEmail(email)
+{
+  const tempEmail = getEmail(email);
+  if(!tempEmail)
+  {
+    return null;
+  }
+  else
+  {
+    return email;
+  }
 }
 
 /**
@@ -66,6 +94,7 @@ module.exports = {
   getUsers,
   getUser,
   createUser,
+  checkingEmail,
   updateUser,
   deleteUser,
 };

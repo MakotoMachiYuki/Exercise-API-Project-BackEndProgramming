@@ -1,8 +1,9 @@
 const usersRepository = require('./users-repository');
 const { hashPassword } = require('../../../utils/password');
 
-/**
- * Get list of users
+
+/** 
+ *  Get list of users
  * @returns {Array}
  */
 async function getUsers() {
@@ -53,11 +54,20 @@ async function createUser(name, email, password) {
   const hashedPassword = await hashPassword(password);
 
   try {
-    await usersRepository.createUser(name, email, hashedPassword);
+    await usersRepository.createUser(name, emailChecked, hashedPassword);
   } catch (err) {
     return null;
   }
+  return true;
+}
 
+async function checkingEmail(email)
+{
+  try{
+    await usersRepository.checkingEmail(email);
+  } catch (err) {
+    return null;
+  }
   return true;
 }
 
@@ -113,4 +123,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  checkingEmail,
 };
