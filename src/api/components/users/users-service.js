@@ -124,7 +124,7 @@ async function deleteUser(id) {
  * @returns {boolean}
  */
 async function updatePassword(id, old_password, new_password) {
-  const user = await usersRepository.getUsers(id);
+  const user = await usersRepository.getUser(id);
 
   if (!user) {
     return null;
