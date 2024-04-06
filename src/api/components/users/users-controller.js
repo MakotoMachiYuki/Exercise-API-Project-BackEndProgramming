@@ -160,6 +160,13 @@ async function updatePassword(request, response, next) {
       );
     }
 
+    if (old_password === new_password) {
+      throw errorResponder(
+        errorTypes.INVALID_PASSWORD,
+        'Invalid Password (New password is the same one as old password!)'
+      );
+    }
+
     const successUpdate = await usersService.updatePassword(
       id,
       old_password,
