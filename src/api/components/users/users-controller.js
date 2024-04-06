@@ -52,7 +52,7 @@ async function createUser(request, response, next) {
     const password = request.body.password;
     const confirmPassword = request.body.confirm_password;
 
-    if (confirmPassword != password) {
+    if (confirmPassword !== password) {
       throw errorResponder(
         errorTypes.INVALID_PASSWORD,
         'Invalid Password (Confirm Password is Wrong!)'
@@ -153,7 +153,7 @@ async function updatePassword(request, response, next) {
     const new_password = request.body.new_password;
     const confirmPassword = request.body.confirm_password;
 
-    if (confirmPassword != new_password) {
+    if (confirmPassword !== new_password) {
       throw errorResponder(
         errorTypes.INVALID_PASSWORD,
         'Invalid Password (Confirm Password is Wrong!)'
